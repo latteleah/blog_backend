@@ -1,6 +1,6 @@
 'use strict'
 var mongoose = require('mongoose')
-User = mongoose.model('Users')
+User = mongoose.model('Contacts')
 Login = mongoose.model('Login')
 var md5 = require('md5')
 var jwt = require('jsonwebtoken')
