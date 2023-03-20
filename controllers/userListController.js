@@ -113,9 +113,8 @@ exports.updateAUser = async function(req, res){
             console.log("newUser "+JSON.stringify(newUser))
             let userUpdated = _.omit(req.body, '_id')
             console.log("user updated " + JSON.stringify(userUpdated))
-            let user = await User.findOneAndUpdate({contactID :req.params.userId}, userUpdated).lean().exec().then(
-                res.json(user)
-            )
+            let user = await User.findOneAndUpdate({contactID :req.params.userId}, userUpdated).lean().exec()
+            res.json(user)
         }
         catch(err){
             console.error(err);
