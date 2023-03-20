@@ -54,15 +54,15 @@ exports.createAUser = async function(req, res){
 }
 
 exports.readAUser = async function(req, res){
-
     if (req.decoded && req.decoded.user) {
         //console.log(req.params.userId)
         try{
             console.log("read a user")
             console.log(req.params.userId)
             let user = await User.find({contactID :req.params.userId}).lean()
-            console.log(user)
+            //console.log(user),
             res.json(user)
+
         }
         catch(err){
             console.log('Error:', err);
@@ -82,11 +82,12 @@ exports.readAUser = async function(req, res){
 exports.deleteAUser = async function(req, res){
     if (req.decoded && req.decoded.user) {
         try{
-            let user = await User.findOneAndRemove({contactID :req.params.userId}).exec()
+            let user = await User.findOneAndRemove({contactID :req.params.userId}).exec().then(
+                res.json(response)
+            )
             const response = {
                 message: "Delete user id: " + req.params.userId + " successfully",
             }
-            res.json(response)
         }
         catch(err){
             console.log('Error:', err);
@@ -112,10 +113,9 @@ exports.updateAUser = async function(req, res){
             console.log("newUser "+JSON.stringify(newUser))
             let userUpdated = _.omit(req.body, '_id')
             console.log("user updated " + JSON.stringify(userUpdated))
-            let user = await User.findOneAndUpdate({contactID :req.params.userId}, userUpdated).lean().exec()
-            console.log(JSON.stringify(user))
-            console.log("error after update")
-            res.json(user)
+            let user = await User.findOneAndUpdate({contactID :req.params.userId}, userUpdated).lean().exec().then(
+                res.json(user)
+            )
         }
         catch(err){
             console.error(err);
