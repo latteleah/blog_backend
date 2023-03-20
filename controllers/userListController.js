@@ -9,6 +9,9 @@ exports.listAllUsers = async function(req, res){
         var query = {sort: {firstName: 1}}
         try {
             let users = await User.find({}, null, query)
+            setTimeout(function(){
+                console.log("Executed after 1 second");
+            }, 1000)
             res.json(users)
         }
         catch(err){
@@ -34,8 +37,11 @@ exports.createAUser = async function(req, res){
             let newUser = new User(req.body)
             console.log("defined new user")
             await newUser.save().then(
-                res.json(newUser)
+                setTimeout(function(){
+                    console.log("Executed after 1 second");
+                }, 1000)
             )
+            res.json(newUser)
         }
         catch(err){
             console.log('Error:', err);
