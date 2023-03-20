@@ -20,7 +20,7 @@ mongoose.set('strictQuery', true);
 
 mongoose.Promise = global.Promise
 mongoose
-    .connect('mongodb://127.0.0.1:27017/UserDb')
+    .connect(process.env.MONGO_URI)
     .catch (error => console.log(error));
 
 User = require('./models/userListModel')
