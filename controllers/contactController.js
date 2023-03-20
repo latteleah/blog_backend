@@ -8,7 +8,7 @@ exports.listAllUsers = async function(req, res){
     if (req.decoded && req.decoded.user) {
         var query = {sort: {firstName: 1}}
         try {
-            let users = await User.find({}, null, query)
+            let users = await Contact.find({}, null, query)
             setTimeout(function(){
                 console.log("Executed after 1 second");
             }, 1000)
@@ -34,7 +34,7 @@ exports.createAUser = async function(req, res){
         console.log("success entering API")
         console.log(req.body)
         try{
-            let newUser = new User(req.body)
+            let newUser = new Contact(req.body)
             console.log("defined new user")
             await newUser.save().then(
                 setTimeout(function(){
@@ -65,7 +65,7 @@ exports.readAUser = async function(req, res){
         try{
             console.log("read a user")
             console.log(req.params.userId)
-            let user = await User.find({contactID :req.params.userId}).lean()
+            let user = await Contact.find({contactID :req.params.userId}).lean()
             //console.log(user),
             res.json(user)
 
@@ -88,7 +88,7 @@ exports.readAUser = async function(req, res){
 exports.deleteAUser = async function(req, res){
     if (req.decoded && req.decoded.user) {
         try{
-            let user = await User.findOneAndRemove({contactID :req.params.userId}).exec().then(
+            let user = await Contact.findOneAndRemove({contactID :req.params.userId}).exec().then(
                 res.json({message: "Delete user id: " + req.params.userId + " successfully"})
             )
         }
@@ -116,7 +116,7 @@ exports.updateAUser = async function(req, res){
             console.log("newUser "+JSON.stringify(newUser))
             let userUpdated = _.omit(req.body, '_id')
             console.log("user updated " + JSON.stringify(userUpdated))
-            let user = await User.findOneAndUpdate({contactID :req.params.userId}, userUpdated).lean().exec()
+            let user = await Contact.findOneAndUpdate({contactID :req.params.userId}, userUpdated).lean().exec()
             res.json(user)
         }
         catch(err){
