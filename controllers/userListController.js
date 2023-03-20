@@ -83,10 +83,10 @@ exports.deleteAUser = async function(req, res){
     if (req.decoded && req.decoded.user) {
         try{
             let user = await User.findOneAndRemove({contactID :req.params.userId}).exec()
-            res.json(response)
             const response = {
                 message: "Delete user id: " + req.params.userId + " successfully",
             }
+            res.json(response)
         }
         catch(err){
             console.log('Error:', err);
