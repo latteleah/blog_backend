@@ -1,15 +1,14 @@
 'use strict'
-// back to users
 module.exports = function(app){
-    var contactList = require('../controllers/contactController')
+    var userList = require('../controllers/userListController')
     var auth = require('../controllers/authController')
     app.route('/users')
-        .get(auth.loggedIn,contactList.listAllUsers)
-        .post(auth.loggedIn,contactList.createAUser)
+        .get(auth.loggedIn,userList.listAllUsers)
+        .post(auth.loggedIn,userList.createAUser)
     app.route('/users/:userId')
-        .get(auth.loggedIn,contactList.readAUser)
-        .delete(auth.loggedIn,contactList.deleteAUser)
-        .post(auth.loggedIn,contactList.updateAUser)
+        .get(auth.loggedIn,userList.readAUser)
+        .delete(auth.loggedIn,userList.deleteAUser)
+        .post(auth.loggedIn,userList.updateAUser)
     app.route('/login')
         .post(auth.login)
 }

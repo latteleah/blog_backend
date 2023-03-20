@@ -1,6 +1,6 @@
-/**'use strict'
+'use strict'
 var mongoose = require('mongoose')
-User = mongoose.model('Contacts')
+User = mongoose.model('Users')
 const _ = require('lodash');
 
 
@@ -133,4 +133,4 @@ exports.updateAUser = async function(req, res){
             message : 'Failed to Authenticate.'
         })
     }
-}**/
+}

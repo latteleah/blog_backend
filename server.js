@@ -17,26 +17,22 @@ mongoose = require('mongoose')
 mongoose.set('strictQuery', true);
 
 /*bodyParser = require('body-parser')*/
-// Updated to work with atlas
-const connectDB = async() =>{
-    mongoose.Promise = global.Promise
-    mongoose
-        .connect(process.env.MONGO_URI)
-        .catch (error => console.log(error));
-}
 
-Contacts = require('./models/userListModel')
+mongoose.Promise = global.Promise
+mongoose
+    .connect(process.env.MONGO_URI)
+    .catch (error => console.log(error));
+
+User = require('./models/userListModel')
 Login = require('./models/loginModel')
 
 var routes = require('./routes/userListRoutes')
 routes(app)
 
-connectDB().then(()=>{
-    app.listen(port)
-    console.log('User List API started on : '+ port)
-    main()
-})
+app.listen(port)
 
+console.log('User List API started on : '+ port)
+main()
 async function main(){
     try{
         let exist = await Login.findOne({ username: 'bob', password: md5('1234')})

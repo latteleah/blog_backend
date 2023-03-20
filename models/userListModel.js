@@ -34,4 +34,4 @@ var UserSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Contacts', UserSchema)
+module.exports = mongoose.model('Users', UserSchema)
