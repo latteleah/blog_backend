@@ -17,7 +17,7 @@ mongoose = require('mongoose')
 mongoose.set('strictQuery', true);
 
 /*bodyParser = require('body-parser')*/
-
+// Updated to work with atlas
 mongoose.Promise = global.Promise
 mongoose
     .connect(process.env.MONGO_URI)
