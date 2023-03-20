@@ -33,8 +33,9 @@ exports.createAUser = async function(req, res){
         try{
             let newUser = new User(req.body)
             console.log("defined new user")
-            await newUser.save()
-            res.json(newUser)
+            await newUser.save().then(
+                res.json(newUser)
+            )
         }
         catch(err){
             console.log('Error:', err);
