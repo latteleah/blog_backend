@@ -25,7 +25,7 @@ const connectDB = async() =>{
         .catch (error => console.log(error));
 }
 
-User = require('./models/userListModel')
+Contacts = require('./models/userListModel')
 Login = require('./models/loginModel')
 
 var routes = require('./routes/userListRoutes')

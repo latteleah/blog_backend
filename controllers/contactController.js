@@ -1,6 +1,6 @@
 'use strict'
 var mongoose = require('mongoose')
-User = mongoose.model('Users')
+Contact = mongoose.model('Contacts')
 const _ = require('lodash');
 
 
