@@ -21,6 +21,7 @@ mongoose.set('strictQuery', true);
 mongoose.Promise = global.Promise
 mongoose
     .connect(process.env.MONGO_URI)
+    .then(() => console.log('Connected to MongoDB Atlas'))
     .catch (error => console.log(error));
 
 
@@ -37,14 +38,16 @@ console.log('User List API started on : '+ port)
 main()
 async function main(){
     try{
+        console.log("entering db")
         let exist = await Login.findOne({ username: 'leah', password: md5('admin'),role:"admin"})
         if(exist == null){
-            console.log("need to add bob 1234 to login db")
+            console.log("need to add leah admin to login db")
             let user = new Login({username: 'leah', password: md5('admin'),role:"admin"})
             user.save()
         }
         let exist2 = await Login.findOne({ username: 'tom', password: md5('cat'),role:"regular"})
-        if(exist == null){
+        if(exist2 == null){
+            console.log("need to add tom cat to login db")
             let user = new Login({ username: 'tom', password: md5('cat'),role:"regular"})
             user.save()
         }
