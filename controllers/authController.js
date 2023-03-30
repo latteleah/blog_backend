@@ -62,6 +62,7 @@ exports.login = async function(req, res){
 }
 
 exports.loggedIn = function(req, res, next) {
+    console.log("Inside loggedIn")
     const userHeader = req.headers["authorization"];
     if (typeof userHeader !== 'undefined') {
         const header = userHeader.split(" ");
@@ -89,6 +90,7 @@ exports.loggedIn = function(req, res, next) {
 }
 
 exports.isAdmin = async function (req,res,next){
+    console.log("Inside isAdmin")
     const {username} = req.body
     try {
         var user = await Login.findOne({username: username, type:"admin"})
