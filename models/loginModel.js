@@ -11,6 +11,10 @@ var LoginSchema = new Schema({
         type: String,
         Required: 'Please enter'
     },
+    role:{
+        type: String,
+        enum: ['admin','regular']
+    }
 })
 
 module.exports = mongoose.model('Login', LoginSchema)

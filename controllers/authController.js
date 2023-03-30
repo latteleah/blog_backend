@@ -1,11 +1,37 @@
 'use strict'
 var mongoose = require('mongoose')
-User = mongoose.model('Contacts')
 Login = mongoose.model('Login')
 var md5 = require('md5')
 var jwt = require('jsonwebtoken')
 
-
+exports.signup = async function(req,res){
+    const { username, password } = req.body
+    try {
+        var user = await Login.find({username: username, password: md5(password)})
+        if (!user) {
+            let newUser = new Login({username: username, password: md5(password), type: "regular"})
+            await newUser.save().then(
+                setTimeout(function () {
+                    console.log("Executed after 1 second");
+                }, 1000)
+            )
+            res.json(newUser)
+        } else {
+            return res.status(409).json({
+                message: 'user already exists',
+                user : newUser
+            });
+        }
+    }
+    catch(err){
+            console.log('Error:', err);
+            return res.status(500).json({
+                message: 'error while creating new user login',
+                error : err,
+                user : newUser
+            });
+        }
+}
 // Test user and password is pass, pass1
 exports.login = async function(req, res){
     const { username, password } = req.body
@@ -59,6 +85,19 @@ exports.loggedIn = function(req, res, next) {
         });
     } else {
         return res.status(401).json({ message: 'No token.' });
+    }
+}
+
+exports.isAdmin = async function (req,res,next){
+    const {username} = req.body
+    try {
+        var user = await Login.findOne({username: username, type:"admin"})
+        if(user){
+            next();
+        }
+    }
+    catch{
+        return res.status(403).json({ message: 'Not admin.' });
     }
 }
 
