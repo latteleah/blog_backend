@@ -9,7 +9,7 @@ exports.signup = async function(req,res){
     try {
         var user = await Login.find({username: username, password: md5(password)})
         if (!user) {
-            let newUser = new Login({username: username, password: md5(password), type: "regular"})
+            let newUser = new Login({username: username, password: md5(password), role: "regular"})
             await newUser.save().then(
                 setTimeout(function () {
                     console.log("Executed after 1 second");
@@ -93,7 +93,7 @@ exports.isAdmin = async function (req,res,next){
     console.log("Inside isAdmin")
     const {username} = req.body
     try {
-        var user = await Login.findOne({username: username, type:"admin"})
+        var user = await Login.findOne({username: username, role:"admin"})
         if(user){
             next();
         }

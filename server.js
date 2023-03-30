@@ -37,15 +37,15 @@ console.log('User List API started on : '+ port)
 main()
 async function main(){
     try{
-        let exist = await Login.findOne({ username: 'leah', password: md5('admin'),type:"admin"})
+        let exist = await Login.findOne({ username: 'leah', password: md5('admin'),role:"admin"})
         if(exist == null){
             console.log("need to add bob 1234 to login db")
-            let user = new Login({username: 'leah', password: md5('admin'),type:"admin"})
+            let user = new Login({username: 'leah', password: md5('admin'),role:"admin"})
             user.save()
         }
-        let exist2 = await Login.findOne({ username: 'tom', password: md5('cat'),type:"regular"})
+        let exist2 = await Login.findOne({ username: 'tom', password: md5('cat'),role:"regular"})
         if(exist == null){
-            let user = new Login({ username: 'tom', password: md5('cat'),type:"regular"})
+            let user = new Login({ username: 'tom', password: md5('cat'),role:"regular"})
             user.save()
         }
     }
