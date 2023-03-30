@@ -19,10 +19,17 @@ mongoose.set('strictQuery', true);
 /*bodyParser = require('body-parser')*/
 
 mongoose.Promise = global.Promise
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log('Connected to MongoDB Atlas'))
-    .catch (error => console.log(error));
+async function connectToDatabase() {
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+        console.log('Connected to MongoDB Atlas')
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 Login = require('./models/loginModel')
@@ -32,10 +39,13 @@ Blog = require('./models/blogModel')
 var routes = require('./routes/blogRoutes')
 routes(app)
 
-app.listen(port)
+connectToDatabase().then(() => {
+    app.listen(port, () => {
+        console.log(`User List API started on : ${port}`)
+    })
+    main()
+})
 
-console.log('User List API started on : '+ port)
-main()
 async function main(){
     try{
         console.log("entering db")
